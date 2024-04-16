@@ -65,13 +65,17 @@ function handleEquation(array) {
     }
 }
 function handleInput(id) {
+    
      //if a number is pressed it should be concatenated onto current number being built
     //if an operator is pressed it should save the current number and then start num2
     //if an operator is followed by another operator it should replace that operator
     //if num2 is followed by an operator the previous equation should be completed and the result should be set to num1
     //equals sign should calculate result
     //if a . is present in the current number no more . can be added
-    if(id === '=') {
+    if(id==="clear"){
+        currentEquation = [0];
+        result = '';
+    } else if (id === '=') {
         handleEquation(currentEquation);
     } else if (id === '.'){
         if (num1IsResult){
