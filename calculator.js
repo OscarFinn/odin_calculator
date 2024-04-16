@@ -169,7 +169,10 @@ function handleInput(id) {
     if (!currentEquation.includes(`/`)&&!currentEquation.includes(`*`)&&!currentEquation.includes(`-`)&&!currentEquation.includes(`+`)) {
         operatorIndex = currentEquation.length;
     }
-    console.log(currentEquation);
+    updateDisplay();
+    
+}
+function updateDisplay() {
     if(currentEquation.length === 0){
         current.textContent = '0';
         prev.textContent = '';
