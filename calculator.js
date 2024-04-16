@@ -42,8 +42,8 @@ function handleEquation(array) {
         result = operate(0,0,'');
     } else {
         console.log(operatorIndex);
-        num1 = parseInt(array.slice(0,operatorIndex).join(''));
-        num2 = parseInt(array.slice(operatorIndex+1).join(''));
+        num1 = parseFloat(array.slice(0,operatorIndex).join(''));
+        num2 = parseFloat(array.slice(operatorIndex+1).join(''));
         console.log(typeof num2);
         operator = array[operatorIndex];
         if(typeof operator !== "string"){
@@ -56,7 +56,7 @@ function handleEquation(array) {
     
     console.log(`Result = `+result + ` typeof:` + typeof result);
     if (typeof result == "number") {
-        currentEquation = Array.from(String(result),Number);
+        currentEquation = Array.from(String(result));
         operatorIndex=currentEquation.length;
         num1IsResult = true;
     } else {
@@ -73,6 +73,20 @@ function handleInput(id) {
     //if a . is present in the current number no more . can be added
     if(id === '=') {
         handleEquation(currentEquation);
+    } else if (id === '.'){
+        if (num1IsResult){
+            currentEquation = []
+            num1IsResult = false;
+        }
+        if (currentEquation.includes(`/`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)) {
+            if (!currentEquation.slice(operatorIndex+1).includes('.')){
+                currentEquation.push(id);
+            }
+        } else {
+            if (!currentEquation.slice(0,operatorIndex).includes('.')) {
+                currentEquation.push(id);
+            }
+        }
     } else if(id === `/`|| id === `*`|| id === `-`|| id === `+`){
         //if the current string is empty set num1 to 0 and add operator to string
         if(currentEquation.length === 0){
