@@ -1,21 +1,71 @@
-.container{
-    margin: 0 25%
+* {
+    margin: 0;
+    padding: 0;
 }
-.calculator{
-    border:2px solid red;
+body {
+    font-family:"Monaco","Console",monospace;
+    font-size:32px;
+    margin-top: 5rem;
+}
+.container{
+    border: 2px solid purple;
     display:flex;
     flex-direction:column;
     justify-content: center;
-    width:100%
+    align-items: center;
 }
-.row{
-    border:2px solid pink;
+.calculator{
+    width:24rem;
+    padding: 2em 1em;
+    padding-top:3em;
+    background-color: black;
+    border-radius: 10px;
+    border:2px solid red;
     display:flex;
-    flex:1;
+    flex-direction: column;
+    align-items:center;
+}
+.calc-input{
+    display:flex;
+    justify-content: center;
+    flex-wrap:wrap;
 }
 button{
+    font-size:32px;
+    font-weight: 800;
+    font-family:sans-serif;
     border:2px solid blue;
+    box-sizing:border-box;
+    border-radius:0.5rem;
+    height: 6rem;
+    aspect-ratio: 1/1;
 }
-.display{
+
+#clear {
+    aspect-ratio: 2/1;
+}
+.calc-output{
+    font-size: 64px;
+    text-align: end;
+    background-color: white;
     border:2px solid green;
+    border-radius:0.5rem;
+    height:8rem;
+    width: 24rem;
+    margin-bottom:4rem;
+    display:flex;
+    flex-direction: column;
+}
+.previous-number{
+    border:2px solid orange;
+    text-align:start;
+    font-size: 32px;
+    flex: 1 1 1;
+    min-height: 1em;
+}
+.current-number{
+    border:2px solid salmon;
+    height:8rem;
+    flex: 1 1 2;
+    min-height: 0;
 }
