@@ -127,19 +127,19 @@ function handleInput(id) {
                 neg1 = true;
             }
         }
-    } else if(id === `÷`|| id === `*`|| id === `-`|| id === `+`){
+    } else if(id === `/`|| id === `*`|| id === `-`|| id === `+`){
         //if the current string is empty set num1 to 0 and add operator to string
         if(currentEquation.length === 0){
             currentEquation.push(0);
             currentEquation.push(id);
             operatorIndex = currentEquation.length-1;
         //if final character of current string is an operator replace it
-        } else if (currentEquation.slice(-1).includes(`÷`)||currentEquation.slice(-1).includes(`*`)||currentEquation.slice(-1).includes(`-`)||currentEquation.slice(-1).includes(`+`)) {
+        } else if (currentEquation.slice(-1).includes(`/`)||currentEquation.slice(-1).includes(`*`)||currentEquation.slice(-1).includes(`-`)||currentEquation.slice(-1).includes(`+`)) {
             //console.log(`replacing operator`);
             currentEquation.pop();
             currentEquation.push(id);
         //if the current equation already includes an operator 
-        } else if (currentEquation.includes(`÷`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)) {
+        } else if (currentEquation.includes(`/`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)) {
             handleEquation(currentEquation);
             currentEquation.push(id);
         //otherwise add operator
@@ -161,7 +161,7 @@ function handleInput(id) {
     }
     
     //if no operator place operator index at end of equation
-    if (!currentEquation.includes(`÷`)&&!currentEquation.includes(`*`)&&!currentEquation.includes(`-`)&&!currentEquation.includes(`+`)) {
+    if (!currentEquation.includes(`/`)&&!currentEquation.includes(`*`)&&!currentEquation.includes(`-`)&&!currentEquation.includes(`+`)) {
         operatorIndex = currentEquation.length;
     }
     console.log(currentEquation);
@@ -169,6 +169,9 @@ function handleInput(id) {
         calcOutput.textContent = '0';
     } else {
         let textEquation = currentEquation.slice(0,currentEquation.length);
+        if(textEquation.indexOf('/')>0) {
+            textEquation[textEquation.indexOf(`/`)] = '÷';
+        }
         if (neg1) {
             textEquation.splice(0,0,"-");
         } 
