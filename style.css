@@ -79,3 +79,9 @@ button{
 button:hover {
     background-color: hsl(325, 50%, 66%);
 }
+.operation {
+    background-color:hsl(18, 36%, 64%);
+}
+.operation:hover{
+    background-color:hsl(18, 74%, 63%);
+}
