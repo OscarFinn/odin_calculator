@@ -9,7 +9,9 @@ let num1IsResult = false;
 let neg1 = false;
 let neg2 = false;
 
-const calcOutput = document.querySelector(".calc-output");
+const current = document.querySelector(".current-number");
+const prev = document.querySelector(".previous-number");
+
 
 function add(a,b){
     return a + b;
@@ -166,19 +168,31 @@ function handleInput(id) {
     }
     console.log(currentEquation);
     if(currentEquation.length === 0){
-        calcOutput.textContent = '0';
+        current.textContent = '0';
+        prev.textContent = '';
     } else {
-        let textEquation = currentEquation.slice(0,currentEquation.length);
-        if(textEquation.indexOf('/')>0) {
-            textEquation[textEquation.indexOf(`/`)] = '÷';
+        let beforeOperator = [];
+        let afterOperator = [];
+        if(currentEquation.includes(`÷`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)){
+            beforeOperator = currentEquation.slice(0,operatorIndex+1);
+            afterOperator = currentEquation.slice(operatorIndex+1);
+        } else {
+            afterOperator = currentEquation.slice(0,currentEquation.length);
+        }
+        if(beforeOperator.indexOf('/')>0) {
+            beforeOperator[beforeOperator.indexOf(`/`)] = '÷';
+        }
+        if(beforeOperator.indexOf('*')>0){
+            beforeOperator[beforeOperator.indexOf('*')] = 'x';
         }
         if (neg1) {
-            textEquation.splice(0,0,"-");
+            beforeOperator.splice(0,0,"-");
         } 
         if (neg2) {
-            textEquation.splice(operatorIndex+1,0,"-");
+            afterOperator.splice(0,0,"-");
         }
-        calcOutput.textContent = textEquation.join('');
+        prev.textContent = beforeOperator.join('');
+        current.textContent = afterOperator.join('');
     }
 }
 const buttons = document.querySelectorAll("button");
