@@ -6,6 +6,8 @@ let operator = '';
 let result = '';
 let num1IsResult = false;
 
+const calcOutput = document.querySelector(".calc-output");
+
 function add(a,b){
     return a + b;
 }
@@ -107,7 +109,8 @@ function handleInput(id) {
     if (!currentEquation.includes(`/`)&&!currentEquation.includes(`*`)&&!currentEquation.includes(`-`)&&!currentEquation.includes(`+`)) {
         operatorIndex = currentEquation.length;
     }
-   
+    //console.log(currentEquation);
+   calcOutput.textContent = currentEquation.join('');
 }
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button) => {
