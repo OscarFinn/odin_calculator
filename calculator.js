@@ -116,7 +116,7 @@ function handleInput(id) {
         }
     } else if(id===`+/-`){
         //add +/- identifier to current string
-        if (currentEquation.includes(`÷`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)) {
+        if (currentEquation.includes(`/`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)) {
             if (neg2) {
                 neg2 = false;
             } else {
@@ -173,17 +173,28 @@ function handleInput(id) {
     } else {
         let beforeOperator = [];
         let afterOperator = [];
-        if(currentEquation.includes(`÷`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)){
-            beforeOperator = currentEquation.slice(0,operatorIndex+1);
-            afterOperator = currentEquation.slice(operatorIndex+1);
+        if(currentEquation.includes(`/`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)){
+            if (currentEquation.slice(-1).includes(`/`)||currentEquation.slice(-1).includes(`*`)||currentEquation.slice(-1).includes(`-`)||currentEquation.slice(-1).includes(`+`)){
+                afterOperator = currentEquation.slice(0,currentEquation.length);
+            } else {
+                beforeOperator = currentEquation.slice(0,operatorIndex+1);
+                afterOperator = currentEquation.slice(operatorIndex+1);
+            }
         } else {
             afterOperator = currentEquation.slice(0,currentEquation.length);
         }
+        //some real janky code, should improve
         if(beforeOperator.indexOf('/')>0) {
             beforeOperator[beforeOperator.indexOf(`/`)] = '÷';
         }
         if(beforeOperator.indexOf('*')>0){
             beforeOperator[beforeOperator.indexOf('*')] = 'x';
+        }
+        if(afterOperator.indexOf('/')>0) {
+            beforeOperator[afterOperator.indexOf(`/`)] = '÷';
+        }
+        if(afterOperator.indexOf('*')>0){
+            afterOperator[afterOperator.indexOf('*')] = 'x';
         }
         if (neg1) {
             beforeOperator.splice(0,0,"-");
