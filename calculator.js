@@ -180,14 +180,26 @@ function updateDisplay() {
         let beforeOperator = [];
         let afterOperator = [];
         if(currentEquation.includes(`/`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)){
-            if (currentEquation.slice(-1).includes(`/`)||currentEquation.slice(-1).includes(`*`)||currentEquation.slice(-1).includes(`-`)||currentEquation.slice(-1).includes(`+`)){
-                afterOperator = currentEquation.slice(0,currentEquation.length);
-            } else {
                 beforeOperator = currentEquation.slice(0,operatorIndex+1);
                 afterOperator = currentEquation.slice(operatorIndex+1);
-            }
         } else {
             afterOperator = currentEquation.slice(0,currentEquation.length);
+        }
+        let toReplace = '';
+        if(afterOperator.length>10){
+            /*if (afterOperator.slice(-1).includes(`/`)||afterOperator.slice(-1).includes(`*`)||afterOperator.slice(-1).includes(`-`)||afterOperator.slice(-1).includes(`+`)) {
+                toReplace = afterOperator.pop();
+            }*/
+            afterOperator = Array.from(String(parseFloat(afterOperator.join('')).toExponential(7)))
+            /*if (toReplace!==''){
+                afterOperator.push(toReplace);
+            }*/
+        }
+        if(beforeOperator.length>11){
+            toReplace = beforeOperator.pop();
+            beforeOperator = Array.from(String(parseFloat(beforeOperator.join('')).toExponential(7)))
+            beforeOperator.push(toReplace);
+            console.log(beforeOperator);
         }
         //some real janky code, should improve
         if(beforeOperator.indexOf('/')>0) {
