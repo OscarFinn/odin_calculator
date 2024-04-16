@@ -12,7 +12,7 @@ let neg2 = false;
 const current = document.querySelector(".current-number");
 const prev = document.querySelector(".previous-number");
 
-
+const errorMsg = "ERROR";
 function add(a,b){
     return a + b;
 }
@@ -77,20 +77,23 @@ function handleEquation(array) {
         operatorIndex=currentEquation.length;
         num1IsResult = true;
     } else {
-        currentEquation = [];
+        currentEquation = [errorMsg];
         operatorIndex = 0;
         neg1 = false;
     }
 }
 function handleInput(id) {
-    
      //if a number is pressed it should be concatenated onto current number being built
     //if an operator is pressed it should save the current number and then start num2
     //if an operator is followed by another operator it should replace that operator
     //if num2 is followed by an operator the previous equation should be completed and the result should be set to num1
     //equals sign should calculate result
     //if a . is present in the current number no more . can be added
-    
+    if(currentEquation[0]==errorMsg){
+        currentEquation = [];
+        neg1 = false;
+        neg2 = false;
+    }
     
     if(id==="clear"){
         currentEquation = [];
@@ -191,7 +194,7 @@ function handleInput(id) {
             beforeOperator[beforeOperator.indexOf('*')] = 'x';
         }
         if(afterOperator.indexOf('/')>0) {
-            beforeOperator[afterOperator.indexOf(`/`)] = '÷';
+            afterOperator[afterOperator.indexOf(`/`)] = '÷';
         }
         if(afterOperator.indexOf('*')>0){
             afterOperator[afterOperator.indexOf('*')] = 'x';
