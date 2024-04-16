@@ -6,6 +6,9 @@ let operator = '';
 let result = '';
 let num1IsResult = false;
 
+let neg1 = false;
+let neg2 = false;
+
 const calcOutput = document.querySelector(".calc-output");
 
 function add(a,b){
@@ -43,7 +46,13 @@ function handleEquation(array) {
     } else {
         console.log(operatorIndex);
         num1 = parseFloat(array.slice(0,operatorIndex).join(''));
+        if (neg1) {
+            num1 = -num1;
+        }
         num2 = parseFloat(array.slice(operatorIndex+1).join(''));
+        if (neg2) {
+            num2 = -num2;
+        }
         console.log(typeof num2);
         operator = array[operatorIndex];
         if(typeof operator !== "string"){
@@ -53,15 +62,22 @@ function handleEquation(array) {
         }
         //console.log(num1 + ` ` + operator + ` ` + num2);
     }
-    
+    neg2 = false;
     //console.log(`Result = `+result + ` typeof:` + typeof result);
     if (typeof result == "number") {
+        if (result < 0) {
+            neg1 = true;
+            result = -result;
+        } else {
+            neg1 = false;
+        }
         currentEquation = Array.from(String(result));
         operatorIndex=currentEquation.length;
         num1IsResult = true;
     } else {
         currentEquation = [];
         operatorIndex = 0;
+        neg1 = false;
     }
 }
 function handleInput(id) {
@@ -75,9 +91,10 @@ function handleInput(id) {
     
     
     if(id==="clear"){
-        currentEquation = [0];
-        num1IsResult = true;
-    } else if (id == 'undo'){
+        currentEquation = [];
+        neg1 = false;
+        neg2 = false;
+    } else if (id === 'undo'){
         currentEquation.pop();
     } else if (id === '=') {
         handleEquation(currentEquation);
@@ -93,9 +110,24 @@ function handleInput(id) {
         } else {
             if (!currentEquation.slice(0,operatorIndex).includes('.')) {
                 currentEquation.push(id);
+            } 
+        }
+    } else if(id===`+/-`){
+        //add +/- identifier to current string
+        if (currentEquation.includes(`÷`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)) {
+            if (neg2) {
+                neg2 = false;
+            } else {
+                neg2 = true;
+            }
+        } else {
+            if (neg1) {
+                neg1 = false;
+            } else {
+                neg1 = true;
             }
         }
-    } else if(id === `/`|| id === `*`|| id === `-`|| id === `+`){
+    } else if(id === `÷`|| id === `*`|| id === `-`|| id === `+`){
         //if the current string is empty set num1 to 0 and add operator to string
         if(currentEquation.length === 0){
             currentEquation.push(0);
@@ -133,7 +165,18 @@ function handleInput(id) {
         operatorIndex = currentEquation.length;
     }
     console.log(currentEquation);
-   calcOutput.textContent = currentEquation.join('');
+    if(currentEquation.length === 0){
+        calcOutput.textContent = '0';
+    } else {
+        let textEquation = currentEquation.slice(0,currentEquation.length);
+        if (neg1) {
+            textEquation.splice(0,0,"-");
+        } 
+        if (neg2) {
+            textEquation.splice(operatorIndex+1,0,"-");
+        }
+        calcOutput.textContent = textEquation.join('');
+    }
 }
 const buttons = document.querySelectorAll("button");
 buttons.forEach((button) => {
