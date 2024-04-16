@@ -2,13 +2,15 @@
     margin: 0;
     padding: 0;
 }
+
 body {
     font-family:"Monaco","Console",monospace;
     font-size:32px;
     margin-top: 5rem;
+    background-color: hsl(330, 3%, 11%);
 }
 .container{
-    border: 2px solid purple;
+    /*border: 2px solid purple;*/
     display:flex;
     flex-direction:column;
     justify-content: center;
@@ -18,9 +20,9 @@ body {
     width:24rem;
     padding: 2em 1em;
     padding-top:3em;
-    background-color: black;
+    background-color: hsl(325, 65%, 13%);
     border-radius: 10px;
-    border:2px solid red;
+    /*border:2px solid red;*/
     display:flex;
     flex-direction: column;
     align-items:center;
@@ -34,38 +36,46 @@ button{
     font-size:32px;
     font-weight: 800;
     font-family:sans-serif;
-    border:2px solid blue;
+    /*border:2px solid blue;*/
     box-sizing:border-box;
-    border-radius:0.5rem;
+    border-radius:1rem;
+    border: 0.25rem solid hsl(325, 65%, 13%);
     height: 6rem;
     aspect-ratio: 1/1;
+    background-color: hsl(325, 22%, 47%);
 }
 
 #clear {
     aspect-ratio: 2/1;
 }
 .calc-output{
-    font-size: 64px;
+    font-size: 48px;
     text-align: end;
-    background-color: white;
-    border:2px solid green;
+    background-color: hsl(325, 20%, 75%);;
+    /*border:2px solid green;*/
     border-radius:0.5rem;
     height:8rem;
     width: 24rem;
     margin-bottom:4rem;
     display:flex;
     flex-direction: column;
+    justify-content: space-between
 }
 .previous-number{
-    border:2px solid orange;
+    /*border:2px solid orange;*/
     text-align:start;
     font-size: 32px;
     flex: 1 1 1;
-    min-height: 1em;
+    min-height: 2em;
 }
 .current-number{
-    border:2px solid salmon;
+    /*border:2px solid salmon;*/
     height:8rem;
     flex: 1 1 2;
     min-height: 0;
+    align-self:flex-end;
+    justify-content: flex-end;
+}
+button:hover {
+    background-color: hsl(325, 50%, 66%);
 }
