@@ -54,7 +54,7 @@ function handleEquation(array) {
         //console.log(num1 + ` ` + operator + ` ` + num2);
     }
     
-    console.log(`Result = `+result + ` typeof:` + typeof result);
+    //console.log(`Result = `+result + ` typeof:` + typeof result);
     if (typeof result == "number") {
         currentEquation = Array.from(String(result));
         operatorIndex=currentEquation.length;
@@ -72,9 +72,13 @@ function handleInput(id) {
     //if num2 is followed by an operator the previous equation should be completed and the result should be set to num1
     //equals sign should calculate result
     //if a . is present in the current number no more . can be added
+    
+    
     if(id==="clear"){
         currentEquation = [0];
-        result = '';
+        num1IsResult = true;
+    } else if (id == 'undo'){
+        currentEquation.pop();
     } else if (id === '=') {
         handleEquation(currentEquation);
     } else if (id === '.'){
@@ -98,12 +102,12 @@ function handleInput(id) {
             currentEquation.push(id);
             operatorIndex = currentEquation.length-1;
         //if final character of current string is an operator replace it
-        } else if (currentEquation.slice(-1).includes(`/`)||currentEquation.slice(-1).includes(`*`)||currentEquation.slice(-1).includes(`-`)||currentEquation.slice(-1).includes(`+`)) {
-            console.log(`replacing operator`);
+        } else if (currentEquation.slice(-1).includes(`÷`)||currentEquation.slice(-1).includes(`*`)||currentEquation.slice(-1).includes(`-`)||currentEquation.slice(-1).includes(`+`)) {
+            //console.log(`replacing operator`);
             currentEquation.pop();
             currentEquation.push(id);
         //if the current equation already includes an operator 
-        } else if (currentEquation.includes(`/`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)) {
+        } else if (currentEquation.includes(`÷`)||currentEquation.includes(`*`)||currentEquation.includes(`-`)||currentEquation.includes(`+`)) {
             handleEquation(currentEquation);
             currentEquation.push(id);
         //otherwise add operator
@@ -113,7 +117,7 @@ function handleInput(id) {
         }
         num1IsResult = false;
     //if type is number push onto equation
-    } else if(typeof parseInt(id) == "number") {
+    } else {
         if (num1IsResult){
             currentEquation = []
             currentEquation.push(id);
@@ -123,11 +127,12 @@ function handleInput(id) {
         }
 
     }
+    
     //if no operator place operator index at end of equation
-    if (!currentEquation.includes(`/`)&&!currentEquation.includes(`*`)&&!currentEquation.includes(`-`)&&!currentEquation.includes(`+`)) {
+    if (!currentEquation.includes(`÷`)&&!currentEquation.includes(`*`)&&!currentEquation.includes(`-`)&&!currentEquation.includes(`+`)) {
         operatorIndex = currentEquation.length;
     }
-    //console.log(currentEquation);
+    console.log(currentEquation);
    calcOutput.textContent = currentEquation.join('');
 }
 const buttons = document.querySelectorAll("button");
